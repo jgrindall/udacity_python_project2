@@ -1,5 +1,8 @@
 /venv
 src/.spyproject
-src/tmp
+src/_tmp/*.txt
+src/_tmp/*.jpg
+src/_out/*.txt
+src/_out/*.jpg
 **/__pycache__
 **/__pycache__/**
