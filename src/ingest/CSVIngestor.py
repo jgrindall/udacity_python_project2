@@ -1,11 +1,13 @@
 """ Comment """
-import sys
-sys.path.append('/models')
 
+
+import sys
 import pandas
 from .IngestorInterface import IngestorInterface
 from models import QuoteModel
 from typing import List
+
+sys.path.append('/models')
 
 
 class CSVIngestor(IngestorInterface):

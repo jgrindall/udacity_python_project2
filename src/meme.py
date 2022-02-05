@@ -7,13 +7,12 @@ from models import QuoteModel
 import argparse
 from engine import MemeEngine
 import traceback
-import sys
 
 
 root_dir = os.path.abspath(os.curdir)
-
 DEFAULT_QUOTE_FOLDER = root_dir + '/src/_data/DogQuotes/'
 DEFAULT_IMAGE_FOLDER = root_dir + '/src/_data/photos/dog/'
+
 
 def get_random_image():
     """Comment"""
@@ -21,6 +20,7 @@ def get_random_image():
     for root, dirs, files in os.walk(DEFAULT_IMAGE_FOLDER):
         imgs = [os.path.join(root, name) for name in files]
     return random.choice(imgs)
+
 
 def get_random_quote():
     """Comment"""
@@ -32,6 +32,7 @@ def get_random_quote():
             quotes.extend(Ingestor.parse(f))
     print(quotes)
     return random.choice(quotes)
+
 
 def generate_meme(path=None, body=None, author=None):
     """ Generate a meme given an path and a quote """
@@ -50,9 +51,12 @@ def generate_meme(path=None, body=None, author=None):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="set a command")
-    parser.add_argument('--path', type=str, help="path to an image file (optional)")
-    parser.add_argument('--body', type=str, help="quote body to add to the image (optional, required if author is set)")
-    parser.add_argument('--author', type=str, help="quote author to add to the image (optional, required if body is set)")
+    parser.add_argument('--path', type=str,
+                        help="path to an image file (optional)")
+    parser.add_argument('--body', type=str,
+                        help="quote body to add to the image (optional, required if author is set)")
+    parser.add_argument('--author', type=str,
+                        help="quote author to add to the image (optional, required if body is set)")
     args = parser.parse_args()
     try:
         print(generate_meme(args.path, args.body, args.author))
@@ -64,4 +68,3 @@ if __name__ == "__main__":
         print("Something went wrong")
         print(e)
         print(traceback.format_exc())
-

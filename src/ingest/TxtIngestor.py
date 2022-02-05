@@ -1,10 +1,12 @@
 """ Comment """
 import sys
-sys.path.append('/models')
 import re
 from .IngestorInterface import IngestorInterface
 from typing import List
 from models import QuoteModel
+
+sys.path.append('/models')
+
 
 class TxtIngestor(IngestorInterface):
     """ Comment """

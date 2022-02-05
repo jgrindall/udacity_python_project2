@@ -1,7 +1,7 @@
 """ Comment."""
-import sys
-sys.path.append('/models')
 
+
+import sys
 from typing import List
 import subprocess
 import random
@@ -10,7 +10,9 @@ from .TxtIngestor import TxtIngestor
 from models import QuoteModel
 import os
 
+sys.path.append('/models')
 root = os.path.abspath(os.curdir)
+
 
 class PDFIngestor(IngestorInterface):
 

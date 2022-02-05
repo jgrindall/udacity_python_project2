@@ -1,15 +1,15 @@
 """ Comment """
 
 import sys
-sys.path.append('/models')
-
 from abc import ABC, abstractmethod
 from models import QuoteModel
-
 from typing import List
 
+sys.path.append('/models')
+
+
 class IngestorInterface(ABC):
-    
+
     """ Comment."""
 
     suppported_extensions = []

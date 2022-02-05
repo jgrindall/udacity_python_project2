@@ -1,12 +1,13 @@
 """Comment."""
 import sys
-sys.path.append('/models')
-
 import docx
 from .IngestorInterface import IngestorInterface
 from models import QuoteModel
 from typing import List
 import re
+
+sys.path.append('/models')
+
 
 class DocxIngestor(IngestorInterface):
 
