@@ -10,9 +10,8 @@ from .TxtIngestor import TxtIngestor
 from models import QuoteModel
 import os
 
+root_dir = os.path.abspath(os.curdir)
 sys.path.append('/models')
-root = os.path.abspath(os.curdir)
-
 
 class PDFIngestor(IngestorInterface):
 
@@ -31,6 +30,6 @@ class PDFIngestor(IngestorInterface):
 
         """
 
-        tmp = f'{root}/src/_tmp/{random.randint(0,100000000)}.txt'
+        tmp = f'{root_dir}/src/_tmp/{random.randint(0,100000000)}.txt'
         call = subprocess.call(['pdftotext', path, tmp])
         return TxtIngestor.import_and_parse(tmp)

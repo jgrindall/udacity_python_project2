@@ -3,20 +3,18 @@
 
 import sys
 import os
-import requests
 import random
-import subprocess
 from PIL import Image, ImageDraw, ImageFont
 from models import QuoteModel
 
 sys.path.append('/models')
-root = os.path.abspath(os.curdir)
+root_dir = os.path.abspath(os.curdir)
 
 
 class MemeEngine:
     """ MemeEngine."""
 
-    def __init__(self, out_path: str):
+    def __init__(self, out_path: str = "/src/_out"):
         """Constructor
         Arguments:
             out_path {str} - where to save
@@ -36,13 +34,13 @@ class MemeEngine:
 
         print(img, quote, self.out_path, out_file)
 
-        font_path = f'{root}/LilitaOne-Regular.ttf'
+        font_path = f'{root_dir}/LilitaOne-Regular.ttf'
         font = ImageFont.truetype(font_path, size=20)
 
         with Image.open(img) as im:
             drawer = ImageDraw.Draw(im)
             drawer.multiline_text((10, 10), quote.get_formatted(),
                                   font=font, fill=(0, 0, 0))
-            im.save(out_file, "JPEG")
-
+            im.save(root_dir + out_file, "JPEG")
+        print("out", out_file)
         return out_file

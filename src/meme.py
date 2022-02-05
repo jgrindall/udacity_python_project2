@@ -1,13 +1,11 @@
 """Command line utility to create memes."""
 
-import os
 from models import QuoteModel
 import argparse
 from engine import MemeEngine
 import traceback
 from utils import get_random_image, get_random_quote
 
-root_dir = os.path.abspath(os.curdir)
 
 def generate_meme(path=None, body=None, author=None):
     """ Generate a meme given an path and a quote """
@@ -20,7 +18,7 @@ def generate_meme(path=None, body=None, author=None):
         quote = get_random_quote()
     else:
         raise ValueError('Author and body must both be set or both be missing')
-    meme_engine = MemeEngine(root_dir + '/src/_out')
+    meme_engine = MemeEngine()
     return meme_engine.make_meme(img, quote)
 
 
