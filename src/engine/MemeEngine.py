@@ -1,38 +1,45 @@
 """ Comment """
 import sys
 sys.path.append('/models')
-
+import os
 import requests
 import random
 import subprocess
 from PIL import Image, ImageDraw, ImageFont
 from models import QuoteModel
 
+root = os.path.abspath(os.curdir)
 
 class MemeEngine:
     """ MemeEngine """
     
-    @classmethod
-    def make_meme(cls, img, quote: QuoteModel):
+    def __init__(self, out_path: str):
+        """Constructor
+        Arguments:
+            
+        
+        """
+        self.out_path = out_path
+    
+    def make_meme(self, img, quote: QuoteModel):
         """Make a meme, give a model
         Arguments:
             quote {QuoteModel} -- the model.
-            img {str}
+            img {str} - the image to load
         Returns:
             str -- TODO
         """
-        
-        print(img, quote)
-        
-        """crop = None
-        params = (crop["left"], crop["top"], crop["left"] + crop["width"], crop["top"] + crop["height"])
-        im_crop = im.crop(params)
-        aspect_ratio = crop["width"]/crop["height"]
-        im_resized = im_crop.resize((width, int(width/aspect_ratio)))
-        font_path = './data/LilitaOne-Regular.ttf'
-        font = ImageFont.truetype(font_path, size=20)
-        d = ImageDraw.Draw(im_resized)
-        d.multiline_text((10, 10), "Hello\nWorld", font=font, fill=(0, 0, 0))
-        im_resized.save(out_path, "JPEG")"""
 
-        return "abc"
+        out_file = f'{self.out_path}/{random.randint(0,100000000)}.jpg'
+        
+        print(img, quote, self.out_path, out_file)
+
+        font_path = f'{root}/LilitaOne-Regular.ttf'
+        font = ImageFont.truetype(font_path, size=20)
+
+        with Image.open(img) as im:
+            drawer = ImageDraw.Draw(im)
+            drawer.multiline_text((10, 10), quote.get_formatted(), font=font, fill=(0, 0, 0))
+            im.save(out_file, "JPEG")
+
+        return out_file

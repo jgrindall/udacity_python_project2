@@ -6,8 +6,11 @@ from typing import List
 import subprocess
 import random
 from .IngestorInterface import IngestorInterface
+from .TxtIngestor import TxtIngestor
 from models import QuoteModel
+import os
 
+root = os.path.abspath(os.curdir)
 
 class PDFIngestor(IngestorInterface):
 
@@ -26,24 +29,6 @@ class PDFIngestor(IngestorInterface):
 
         """
 
-        tmp = f'./data/{random.randint(0,100000000)}.txt'
+        tmp = f'{root}/src/_tmp/{random.randint(0,100000000)}.txt'
         call = subprocess.call(['pdftotext', path, tmp])
-
-        print('call', call, path, tmp)
-
-        file_ref = open(tmp, "r")
-        cats = []
-
-        for line in file_ref.readlines():
-            line = line.strip('\n\r').strip()
-            if len(line) > 0:
-                print(line)
-                cat_data = line.split()
-                for cat in cat_data:
-                    parse = line.split(',')
-                    new_cat = Cat(parse[0], int(parse[1]), bool(parse[2]))
-                    cats.append(new_cat)
-
-        file_ref.close()
-
-        return cats
+        return TxtIngestor.import_and_parse(tmp)

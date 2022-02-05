@@ -24,8 +24,7 @@ class CSVIngestor(IngestorInterface):
 
         """
         df = pandas.read_csv(file, header=0)
-        cats = []
+        quotes = []
         for index, row in df.iterrows():
-            new_cat = QuoteModel(row['Name'], row['Age'], row['isIndoor'])
-            cats.append(new_cat)
-        return cats
+            quotes.append(QuoteModel(row['body'], row['author']))
+        return quotes

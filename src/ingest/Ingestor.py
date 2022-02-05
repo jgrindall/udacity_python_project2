@@ -26,7 +26,6 @@ class Ingestor:
     @classmethod
     def parse(cls, file: str) -> List[QuoteModel]:
         Parser = cls.get_parser(file)
-        print(file, Parser)
         if Parser:
             return Parser.import_and_parse(file)
         else:

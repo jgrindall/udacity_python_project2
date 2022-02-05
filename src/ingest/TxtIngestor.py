@@ -1,8 +1,7 @@
 """ Comment """
 import sys
 sys.path.append('/models')
-
-import pandas
+import re
 from .IngestorInterface import IngestorInterface
 from typing import List
 from models import QuoteModel
@@ -22,9 +21,17 @@ class TxtIngestor(IngestorInterface):
             List[QuoteModel] -- the quotes
 
         """
-        df = pandas.read_csv(file, header=0)
-        cats = []
-        for index, row in df.iterrows():
-            new_cat = QuoteModel(row['Name'], row['Age'], row['isIndoor'])
-            cats.append(new_cat)
-        return cats
+        file_ref = open(file, "r")
+        quotes = []
+        for line in file_ref.readlines():
+            line = line.strip('\n\r').strip()
+            if len(line) > 0:
+                parts = re.split(QuoteModel.quote_re_format, line)
+                parts = list(filter(lambda s: len(s) >= 1, parts))
+                if len(parts) % 2 == 0:
+                    i = 0
+                    while i < len(parts)/2:
+                        quotes.append(QuoteModel(parts[i], parts[i + 1]))
+                        i += 2
+        file_ref.close()
+        return quotes

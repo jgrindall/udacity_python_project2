@@ -6,6 +6,7 @@ import docx
 from .IngestorInterface import IngestorInterface
 from models import QuoteModel
 from typing import List
+import re
 
 class DocxIngestor(IngestorInterface):
 
@@ -20,15 +21,17 @@ class DocxIngestor(IngestorInterface):
         Arguments:
             file {str} -- the filepath.
         Returns:
-            List[Cat] -- the quotes
+            List[QuoteModel] -- the quotes
 
         """
         doc = docx.Document(file)
-        cats = []
+        quotes = []
         for para in doc.paragraphs:
+            print(para.text)
             if para.text != "":
-                parse = para.text.split(',')
-                new_cat = QuoteModel(parse[0], int(parse[1]), bool(parse[2]))
-                cats.append(new_cat)
+                text = para.text.strip()
+                # doc quotes must be of the form "body" - author
+                result = re.search(QuoteModel.quote_re_format, text)
+                quotes.append(QuoteModel(result.group(1), result.group(2)))
 
-        return cats
+        return quotes

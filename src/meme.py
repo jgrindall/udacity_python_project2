@@ -6,9 +6,14 @@ from ingest import Ingestor
 from models import QuoteModel
 import argparse
 from engine import MemeEngine
+import traceback
+import sys
 
-DEFAULT_QUOTE_FOLDER = './_data/DogQuotes/'
-DEFAULT_IMAGE_FOLDER = "./_data/photos/dog/"
+
+root_dir = os.path.abspath(os.curdir)
+
+DEFAULT_QUOTE_FOLDER = root_dir + '/src/_data/DogQuotes/'
+DEFAULT_IMAGE_FOLDER = root_dir + '/src/_data/photos/dog/'
 
 def get_random_image():
     """Comment"""
@@ -22,8 +27,10 @@ def get_random_quote():
     quotes = []
     for root, dirs, files in os.walk(DEFAULT_QUOTE_FOLDER):
         files = [os.path.join(root, name) for name in files]
+        print(files)
         for f in files:
             quotes.extend(Ingestor.parse(f))
+    print(quotes)
     return random.choice(quotes)
 
 def generate_meme(path=None, body=None, author=None):
@@ -37,7 +44,7 @@ def generate_meme(path=None, body=None, author=None):
         quote = get_random_quote()
     else:
         raise ValueError('Author and body must both be set or both be missing')
-    meme_engine = MemeEngine('./tmp')
+    meme_engine = MemeEngine(root_dir + '/src/_out')
     return meme_engine.make_meme(img, quote)
 
 
@@ -52,7 +59,9 @@ if __name__ == "__main__":
     except ValueError as e:
         print("Incorrect params")
         print(e)
+        print(traceback.format_exc())
     except Exception as e:
         print("Something went wrong")
         print(e)
+        print(traceback.format_exc())
 
