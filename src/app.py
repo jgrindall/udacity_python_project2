@@ -1,9 +1,7 @@
-import random
 import os
 import requests
 from flask import Flask, render_template, abort, request
 from engine import MemeEngine
-from ingest import Ingestor
 from utils import get_random_image, get_random_quote, get_all_quotes, get_all_images
 
 app = Flask(__name__, static_url_path='', static_folder='./_out')
@@ -13,17 +11,11 @@ meme_engine = MemeEngine()
 quotes = get_all_quotes()
 imgs = get_all_images()
 
+
 @app.route('/')
 def meme_rand():
-
     """ Generate a random meme """
-    print(get_random_image(), get_random_quote())
     path = meme_engine.make_meme(get_random_image(), get_random_quote())
-    print(path)
-    
-    print(os.path.basename(path))
-    
-    
     return render_template('meme.html', path=os.path.basename(path))
 
 

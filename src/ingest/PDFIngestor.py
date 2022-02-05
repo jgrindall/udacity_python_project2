@@ -13,6 +13,7 @@ import os
 root_dir = os.path.abspath(os.curdir)
 sys.path.append('/models')
 
+
 class PDFIngestor(IngestorInterface):
 
     """Comment."""
