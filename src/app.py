@@ -4,9 +4,9 @@ import requests
 from flask import Flask, render_template, abort, request
 
 # @TODO Import your Ingestor and MemeEngine classes
+from engine import MemeEngine
 
 app = Flask(__name__)
-
 meme = MemeEngine('./static')
 
 
