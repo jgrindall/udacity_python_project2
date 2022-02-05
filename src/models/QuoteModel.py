@@ -3,7 +3,8 @@ import doctest
 
 
 class QuoteModel():
-
+    
+    # quotes in docs and other files are of the form "body" - author
     quote_re_format = '\"(.*?)\"\s*-\s*(.*?)\s*'
 
     def __init__(self, body, author):
@@ -20,6 +21,8 @@ class QuoteModel():
         return f'A quote: {self.body} by {self.author}'
 
     def get_formatted(self) -> str:
+        """ store body and author amd format as  "body" - author
+        """
         return f"\"{self.body}\" - {self.author}"
 
 

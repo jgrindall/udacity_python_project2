@@ -6,6 +6,8 @@ from engine import MemeEngine
 import traceback
 from utils import get_random_image, get_random_quote
 
+class ParamsError(Exception):
+    pass
 
 def generate_meme(path=None, body=None, author=None):
     """ Generate a meme given an path and a quote """
@@ -17,7 +19,7 @@ def generate_meme(path=None, body=None, author=None):
     elif not body and not author:
         quote = get_random_quote()
     else:
-        raise ValueError('Author and body must both be set or both be missing')
+        raise ParamsError('Author and body must both be set or both be missing')
     meme_engine = MemeEngine()
     return meme_engine.make_meme(img, quote)
 
@@ -35,10 +37,10 @@ if __name__ == "__main__":
 
     try:
         print(generate_meme(args.path, args.body, args.author))
+    except ParamsError as e:
+        print("Incorrect params")
     except ValueError as e:
         print("Incorrect params")
-        print(e)
-        print(traceback.format_exc())
     except Exception as e:
         print("Something went wrong")
         print(e)

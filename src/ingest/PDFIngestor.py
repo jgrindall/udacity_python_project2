@@ -9,9 +9,11 @@ from .IngestorInterface import IngestorInterface
 from .TxtIngestor import TxtIngestor
 from models import QuoteModel
 import os
+import time
 
 root_dir = os.path.abspath(os.curdir)
 sys.path.append('/models')
+TEMP_FOLDER = root_dir + '/_tmp/'
 
 
 class PDFIngestor(IngestorInterface):
@@ -31,6 +33,6 @@ class PDFIngestor(IngestorInterface):
 
         """
 
-        tmp = f'{root_dir}/src/_tmp/{random.randint(0,100000000)}.txt'
+        tmp = f'{TEMP_FOLDER}/{int(time.time())}{random.randint(0,1000)}.txt'
         call = subprocess.call(['pdftotext', path, tmp])
         return TxtIngestor.import_and_parse(tmp)

@@ -5,8 +5,9 @@ import random
 from ingest import Ingestor
 
 root_dir = os.path.abspath(os.curdir)
-DEFAULT_QUOTE_FOLDER = root_dir + '/src/_data/DogQuotes/'
-DEFAULT_IMAGE_FOLDER = root_dir + '/src/_data/photos/dog/'
+out_dir = '/_out'
+DEFAULT_QUOTE_FOLDER = root_dir + '/_data/DogQuotes/'
+DEFAULT_IMAGE_FOLDER = root_dir + '/_data/photos/dog/'
 
 
 def get_random_image():
