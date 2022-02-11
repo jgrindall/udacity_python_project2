@@ -1,7 +1,7 @@
 import os
 import requests
 from models import QuoteModel
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, abort
 from engine import MemeEngine
 from loaders import get_random_image, get_random_quote
 from utils import get_tmp_file, out_dir
@@ -37,13 +37,13 @@ def meme_post():
     author = request.form.get('author', "").strip()
 
     if not image_url or not body or not author:
-        raise ValueError("form params incorrect")
+        abort(400, "Please include an image, a body and an author")
 
     ext = image_url.split('.')[-1].lower()
     supported_extensions = ["jpg", "png", "jpeg"]
 
     if ext not in supported_extensions:
-        raise ValueError("Only jpg and png are currently supported")
+        abort(422, "Only jpg and png are currently supported")
 
     tmp = get_tmp_file(ext)
     load_request = requests.get(image_url)
