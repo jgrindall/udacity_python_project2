@@ -2,13 +2,20 @@
 
 import os
 import random
+import time
 from ingest import Ingestor
 
 root_dir = os.path.abspath(os.curdir)
-
 out_dir = '/_out'
+
+TEMP_FOLDER = root_dir + '/_tmp'
 DEFAULT_QUOTE_FOLDER = root_dir + '/_data/DogQuotes/'
 DEFAULT_IMAGE_FOLDER = root_dir + '/_data/photos/dog/'
+
+
+def get_tmp_file(ext):
+    """Get a random temp path."""
+    return f'{TEMP_FOLDER}/{int(time.time())}{random.randint(0,1000000)}.{ext}'
 
 
 def get_random_image():

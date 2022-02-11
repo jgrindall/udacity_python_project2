@@ -19,16 +19,18 @@ class MemeEngine:
     def __init__(self, out_dir: str = default_out_dir):
         """Constructor
         Arguments:
-            out_path {str} - where to save
+            out_dir {str} - where to save the file
         """
         self.out_dir = out_dir
 
     @staticmethod
     def get_color():
         "Get a random color."
-        return (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+        return (random.randint(0, 255),
+                random.randint(0, 255),
+                random.randint(0, 255))
 
-    def make_meme(self, img_path:str, quote: QuoteModel):
+    def make_meme(self, img_path: str, quote: QuoteModel):
         """Make a meme, given an image and a model
         Arguments:
             img {str} - the image to load.
@@ -38,7 +40,7 @@ class MemeEngine:
             str -- path to the saved file which was created
         """
 
-        out_file = f'{self.out_dir}/{int(time.time())}{random.randint(0,1000)}.jpg'
+        out_file = f'{self.out_dir}/{int(time.time())}{random.randint(0,1000000)}.jpg'
 
         # some randomisation of colors etc
         font_size = random.randint(16, 32)

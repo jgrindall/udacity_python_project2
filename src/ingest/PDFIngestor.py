@@ -4,16 +4,14 @@
 import sys
 from typing import List
 import subprocess
-import random
 from .IngestorInterface import IngestorInterface
 from .TxtIngestor import TxtIngestor
 from models import QuoteModel
+from utils.FileUtils import get_tmp_file
 import os
-import time
 
 sys.path.append('/models')
 root_dir = os.path.abspath(os.curdir)
-TEMP_FOLDER = root_dir + '/_tmp'
 
 
 class PDFIngestor(IngestorInterface):
@@ -32,14 +30,16 @@ class PDFIngestor(IngestorInterface):
             List[QuoteModel] -- the quotes
         """
 
-        tmp = f'{TEMP_FOLDER}/{int(time.time())}{random.randint(0,1000)}.txt'
+        tmp = get_tmp_file("txt")
 
         """We need the layout argument to maintain line breaks otherwise lines
         are joined together and it is difficult to split them into quotes"""
 
         cmd = r"{} -enc UTF-8 -layout {} {}".format('pdftotext', path, tmp)
 
-        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        proc = subprocess.Popen(cmd,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE)
         proc.wait()
         (stdout, stderr) = proc.communicate()
         if proc.returncode != 0:

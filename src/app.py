@@ -1,23 +1,23 @@
 import os
 import requests
-import time
-import random
 from models import QuoteModel
 from flask import Flask, render_template, request
 from engine import MemeEngine
-from utils import get_random_image, get_random_quote, out_dir
+from utils import get_random_image, get_random_quote, out_dir, get_tmp_file
 
 meme_engine = MemeEngine()
 root_dir = os.path.abspath(os.curdir)
-TEMP_FOLDER = root_dir + '/_tmp'
 
 # Serve static images from root_dir + out_dir
 app = Flask(__name__, static_folder=root_dir + out_dir)
 
+
 @app.route('/')
 def meme_rand():
     """ Generate a random meme """
-    path_generated = meme_engine.make_meme(get_random_image(), get_random_quote())
+    path_generated = meme_engine.make_meme(
+        get_random_image(),
+        get_random_quote())
     return render_template('meme.html', path=path_generated)
 
 
@@ -30,7 +30,7 @@ def meme_form():
 @app.route('/create', methods=['POST'])
 def meme_post():
     """ Create a user defined meme """
-    
+
     image_url = request.form.get('image_url', "").strip()
     body = request.form.get('body', "").strip()
     author = request.form.get('author', "").strip()
@@ -39,22 +39,19 @@ def meme_post():
         raise ValueError("form params incorrect")
 
     ext = image_url.split('.')[-1].lower()
-
     supported_extensions = ["jpg", "png", "jpeg"]
 
-    if not ext in supported_extensions:
+    if ext not in supported_extensions:
         raise ValueError("Only jog and png are currently supported")
 
-    tmp = f'{TEMP_FOLDER}/{int(time.time())}{random.randint(0,1000)}.{ext}'
-
+    tmp = get_tmp_file(ext)
     load_request = requests.get(image_url)
 
     with open(tmp, 'wb') as img:
         img.write(load_request.content)
     out_path = meme_engine.make_meme(tmp, QuoteModel(body, author))
 
-    # 3. Remove the temporary saved image.
-
+    os.remove(tmp)
     return render_template('meme.html', path=out_path)
 
 
