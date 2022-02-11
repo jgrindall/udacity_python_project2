@@ -76,10 +76,10 @@ class QuoteModel():
         ...
         ValueError: Parsing text to model failed:"Body - Author
         """
-        
+
         # first remove any non utf-8 weirdness
         # https://stackoverflow.com/questions/8898294/convert-utf-8-with-bom-to-utf-8-with-no-bom-in-python
-        
+
         text = bytes(text.strip(), 'utf-8').decode('utf-8-sig', 'ignore')
 
         groups = None
