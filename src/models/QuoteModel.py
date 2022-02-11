@@ -24,7 +24,7 @@ class QuoteModel():
 
     def is_valid(self):
         """Check if model is valid.
-        
+
         >>> q1.is_valid()
         True
         >>> q3.is_valid()
@@ -43,38 +43,38 @@ class QuoteModel():
 
     def __eq__(self, other):
         return self.author == other.author and self.body == other.body
-    
+
     @staticmethod
     def from_text(text: str):
 
         """Parse a line using the regexps described above
         Returns a valid QuoteModel or throws a ValueError
-        
+
         Test creating basic model
         >>> QuoteModel.from_text("Body1 - Author") == q1
         True
-        
+
         Test whitespace
         >>> QuoteModel.from_text('   "Body2"          -     Author') == q2
         True
-     
+
         Test error
         >>> q = QuoteModel.from_text("")
         Traceback (most recent call last):
         ...
-        ValueError: Parsing text to model failed 
-        
+        ValueError: Parsing text to model failed:
+
         Test error
         >>> q = QuoteModel.from_text("Body")
         Traceback (most recent call last):
         ...
-        ValueError: Parsing text to model failed Body
-        
+        ValueError: Parsing text to model failed:Body
+
         Test error - mismatched quotes
         >>> q = QuoteModel.from_text('"Body - Author')
         Traceback (most recent call last):
         ...
-        ValueError: Parsing text to model failed "Body - Author
+        ValueError: Parsing text to model failed:"Body - Author
         """
 
         groups = None
@@ -84,13 +84,13 @@ class QuoteModel():
             groups = re.findall(QuoteModel.regexp_2, text)
 
         if not groups or len(groups) != 1:
-            raise ValueError('Parsing text to model failed ' + text)
+            raise ValueError('Parsing text to model failed:' + text)
         matches = groups[0]
         return QuoteModel(matches[0], matches[1])
 
 
 if __name__ == "__main__":
-    print("tests...")
+    print("running doctests...")
     q3 = QuoteModel('Body3', "Author")
     q3.author = ""
     eglobs = {
@@ -99,6 +99,3 @@ if __name__ == "__main__":
         'q3': q3
         }
     doctest.testmod(extraglobs=eglobs)
-
-
-
