@@ -2,7 +2,7 @@
 
 import os
 import random
-from ingest import Ingestor
+from quote_engine import Ingestor
 
 root_dir = os.path.abspath(os.curdir)
 

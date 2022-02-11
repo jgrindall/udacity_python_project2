@@ -2,7 +2,7 @@
 
 from models import QuoteModel
 import argparse
-from engine import MemeEngine
+from meme_engine import MemeEngine
 import traceback
 from loaders import get_random_image, get_random_quote
 

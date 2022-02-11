@@ -1,5 +1,7 @@
 #MemeGenerator
 
+
+
 - To install dependencies:
             - source venv/Scrips/activate
             - pip install -r requirements.txt
@@ -12,7 +14,7 @@
             
             
 - To run some unit tests (currently just QuoteModel)
-            - python3 src/models/QuoteMode.py
+            - python3 src/models/QuoteModel.py
 
 
 
@@ -21,21 +23,22 @@
             - flask run
             
 
+##Code
+
+a brief description of the roles-and-responsibilities of all sub-modules including dependencies and examples of how to use the module.
+
+
 
 https://review.udacity.com/#!/rubrics/2709/view
 
 
-1. finish app - verify stuff/check dimensions
 2. handle errors better
 3. check rubric
-4. check strnage chars in txt
 
 
-A README file is included in the project root and includes:
 
 an overview of the project.
 instructions for setting up and running the program.
-a brief description of the roles-and-responsibilities of all sub-modules including dependencies and examples of how to use the module.
 
 
 pip freeze > requirements.txt 
