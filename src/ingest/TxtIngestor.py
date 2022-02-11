@@ -1,7 +1,6 @@
 """ Comment """
 
 import sys
-import re
 from .IngestorInterface import IngestorInterface
 from typing import List
 from models import QuoteModel
@@ -29,12 +28,6 @@ class TxtIngestor(IngestorInterface):
         for line in file_ref.readlines():
             line = line.strip('\n\r').strip()
             if len(line) > 0:
-                parts = re.split(QuoteModel.quote_re_format, line)
-                parts = list(filter(lambda s: len(s) >= 1, parts))
-                if len(parts) % 2 == 0:
-                    i = 0
-                    while i < len(parts)/2:
-                        quotes.append(QuoteModel(parts[i], parts[i + 1]))
-                        i += 2
+                quotes.append(QuoteModel.from_text(line))
         file_ref.close()
         return quotes

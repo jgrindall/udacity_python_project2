@@ -30,12 +30,7 @@ class DocxIngestor(IngestorInterface):
         for para in doc.paragraphs:
             if para.text != "":
                 text = para.text.strip()
-                # doc quotes must be of the form "body" - author
-                matches = re.fullmatch(QuoteModel.quote_re_format, text)
-                groups = matches.groups()
-                if len(groups) == 2:
-                    quotes.append(QuoteModel(groups[0], groups[1]))
-                else:
-                    raise Exception("doc parse failed")
+                model = QuoteModel.from_text(text)
+                quotes.append(model)
 
         return quotes

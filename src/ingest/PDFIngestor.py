@@ -11,9 +11,11 @@ from models import QuoteModel
 import os
 import time
 
-root_dir = os.path.abspath(os.curdir)
 sys.path.append('/models')
-TEMP_FOLDER = root_dir + '/_tmp/'
+
+root_dir = os.path.abspath(os.curdir)
+
+TEMP_FOLDER = root_dir + '/_tmp'
 
 
 class PDFIngestor(IngestorInterface):
@@ -29,10 +31,22 @@ class PDFIngestor(IngestorInterface):
         Arguments:
             file {str} -- the filepath.
         Returns:
-            List[Cat] -- the cats
-
+            List[QuoteModel] -- the quotes
         """
 
         tmp = f'{TEMP_FOLDER}/{int(time.time())}{random.randint(0,1000)}.txt'
-        call = subprocess.call(['pdftotext', path, tmp])
-        return TxtIngestor.import_and_parse(tmp)
+
+        """We need the layout argument to maintain line breaks otherwise lines
+        are joined together and it is difficult to split them into quotes"""
+
+        cmd = r"{} -enc UTF-8 -layout {} {}".format('pdftotext', path, tmp)
+
+        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        proc.wait()
+        (stdout, stderr) = proc.communicate()
+        if proc.returncode != 0:
+            raise ValueError("something")
+        else:
+            models = TxtIngestor.import_and_parse(tmp)
+            os.remove(tmp)
+            return models

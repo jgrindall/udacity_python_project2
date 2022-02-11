@@ -5,6 +5,14 @@ import random
 from ingest import Ingestor
 
 root_dir = os.path.abspath(os.curdir)
+
+root_dir = os.path.normpath(root_dir)
+
+root_dir = root_dir.replace(os.sep, '\\')
+
+print('root_dir', root_dir)
+
+
 out_dir = '/_out'
 DEFAULT_QUOTE_FOLDER = root_dir + '/_data/DogQuotes/'
 DEFAULT_IMAGE_FOLDER = root_dir + '/_data/photos/dog/'
@@ -46,6 +54,6 @@ def get_all_quotes():
     quotes = []
     for root, dirs, files in os.walk(DEFAULT_QUOTE_FOLDER):
         files = [os.path.join(root, name) for name in files]
-        for f in files:
-            quotes.extend(Ingestor.parse(f))
+        for file in files:
+            quotes.extend(Ingestor.parse(file))
     return quotes

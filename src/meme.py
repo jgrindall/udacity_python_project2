@@ -20,8 +20,7 @@ def generate_meme(path=None, body=None, author=None):
         quote = get_random_quote()
     else:
         raise ParamsError('Author and body must both be set or both be missing')
-    meme_engine = MemeEngine()
-    return meme_engine.make_meme(img, quote)
+    return MemeEngine().make_meme(img, quote)
 
 
 if __name__ == "__main__":
