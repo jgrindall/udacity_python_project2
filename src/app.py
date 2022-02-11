@@ -1,14 +1,17 @@
 import os
 import requests
-from flask import Flask, render_template, abort, request
+import time
+import random
+from models import QuoteModel
+from flask import Flask, render_template, request
 from engine import MemeEngine
-from utils import get_random_image, get_random_quote, get_all_quotes, get_all_images, out_dir
+from utils import get_random_image, get_random_quote, out_dir
 
 meme_engine = MemeEngine()
 root_dir = os.path.abspath(os.curdir)
-quotes = get_all_quotes()
-imgs = get_all_images()
+TEMP_FOLDER = root_dir + '/_tmp'
 
+# Serve static images from root_dir + out_dir
 app = Flask(__name__, static_folder=root_dir + out_dir)
 
 @app.route('/')
@@ -27,17 +30,32 @@ def meme_form():
 @app.route('/create', methods=['POST'])
 def meme_post():
     """ Create a user defined meme """
+    
+    image_url = request.form.get('image_url', "").strip()
+    body = request.form.get('body', "").strip()
+    author = request.form.get('author', "").strip()
 
-    # @TODO:
-    # 1. Use requests to save the image from the image_url
-    #    form param to a temp local file.
-    # 2. Use the meme object to generate a meme using this temp
-    #    file and the body and author form paramaters.
+    if not image_url or not body or not author:
+        raise ValueError("form params incorrect")
+
+    ext = image_url.split('.')[-1].lower()
+
+    supported_extensions = ["jpg", "png", "jpeg"]
+
+    if not ext in supported_extensions:
+        raise ValueError("Only jog and png are currently supported")
+
+    tmp = f'{TEMP_FOLDER}/{int(time.time())}{random.randint(0,1000)}.{ext}'
+
+    load_request = requests.get(image_url)
+
+    with open(tmp, 'wb') as img:
+        img.write(load_request.content)
+    out_path = meme_engine.make_meme(tmp, QuoteModel(body, author))
+
     # 3. Remove the temporary saved image.
 
-    path = None
-
-    return render_template('meme.html', path=path)
+    return render_template('meme.html', path=out_path)
 
 
 if __name__ == "__main__":

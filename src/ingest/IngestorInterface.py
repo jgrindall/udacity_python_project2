@@ -23,5 +23,5 @@ class IngestorInterface(ABC):
     @classmethod
     def can_parse(cls, path):
         """Can this parser handle this file?"""
-        ext = path.split('.')[-1]
+        ext = path.split('.')[-1].lower()
         return ext in cls.suppported_extensions
