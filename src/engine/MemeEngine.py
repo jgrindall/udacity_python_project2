@@ -14,18 +14,22 @@ root_dir = os.path.abspath(os.curdir)
 font_path = f'{root_dir}/_data/LilitaOne-Regular.ttf'
 
 
-
 class MemeEngine:
 
-    def __init__(self, out_dir: str=default_out_dir):
+    def __init__(self, out_dir: str = default_out_dir):
         """Constructor
         Arguments:
             out_path {str} - where to save
         """
         self.out_dir = out_dir
 
-    def make_meme(self, img, quote: QuoteModel):
-        """Make a meme, give a model
+    @staticmethod
+    def get_color():
+        "Get a random color."
+        return (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+
+    def make_meme(self, img_path:str, quote: QuoteModel):
+        """Make a meme, given an image and a model
         Arguments:
             img {str} - the image to load.
             quote {QuoteModel} -- the model to use.
@@ -39,15 +43,14 @@ class MemeEngine:
         # some randomisation of colors etc
         font_size = random.randint(16, 32)
         font = ImageFont.truetype(font_path, size=font_size)
-        font_color = (random.randint(0,255), random.randint(0,255), random.randint(0,255))
         font_x = random.randint(8, 32)
         font_y = random.randint(8, 200)
-        
-        with Image.open(img) as im:
+
+        with Image.open(img_path) as im:
             drawer = ImageDraw.Draw(im)
             drawer.multiline_text((font_x, font_y),
                                   quote.get_formatted(),
                                   font=font,
-                                  fill=font_color)
+                                  fill=self.get_color())
             im.save(root_dir + out_file, "JPEG")
         return out_file

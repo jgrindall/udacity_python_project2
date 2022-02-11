@@ -7,6 +7,7 @@ from typing import List
 
 sys.path.append('/models')
 
+
 class DocxIngestor(IngestorInterface):
 
     """Load a docx, split into paragraphs and parse"""

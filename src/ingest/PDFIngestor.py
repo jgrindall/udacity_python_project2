@@ -1,4 +1,4 @@
-""" Comment."""
+"""Ingest PDF."""
 
 
 import sys
@@ -12,14 +12,13 @@ import os
 import time
 
 sys.path.append('/models')
-
 root_dir = os.path.abspath(os.curdir)
-
 TEMP_FOLDER = root_dir + '/_tmp'
+
 
 class PDFIngestor(IngestorInterface):
 
-    """Comment."""
+    """Ingest PDF file."""
 
     suppported_extensions = ['pdf']
 

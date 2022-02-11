@@ -1,6 +1,7 @@
-""" Comment """
+"""Model for a quote. Contains body and author."""
 import doctest
 import re
+
 
 class QuoteModel():
 
@@ -11,8 +12,8 @@ class QuoteModel():
     Use these regexps to parse.
     """
 
-    regexp_1 = '\s*\"([^\"]*?)\"\s*-\s*([^\"]*)\s*'
-    regexp_2 = '\s*([^\"]*?)\s*-\s*([^\"]*)\s*'
+    regexp_1 = r'\s*\"([^\"]*?)\"\s*-\s*([^\"]*)\s*'
+    regexp_2 = r'\s*([^\"]*?)\s*-\s*([^\"]*)\s*'
 
     def __init__(self, body, author):
         """ Constructor """
@@ -33,7 +34,6 @@ class QuoteModel():
         """Store body and author and format nicely to be written into an image
         """
         return f"\"{self.body}\"\n    - {self.author}"
-
 
     @staticmethod
     def from_text(text: str):

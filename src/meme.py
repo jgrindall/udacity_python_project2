@@ -6,8 +6,10 @@ from engine import MemeEngine
 import traceback
 from utils import get_random_image, get_random_quote
 
+
 class ParamsError(Exception):
     pass
+
 
 def generate_meme(path=None, body=None, author=None):
     """ Generate a meme given an path and a quote """
@@ -19,7 +21,7 @@ def generate_meme(path=None, body=None, author=None):
     elif not body and not author:
         quote = get_random_quote()
     else:
-        raise ParamsError('Author and body must both be set or both be missing')
+        raise ParamsError('Author & body must both be set or both be missing')
     return MemeEngine().make_meme(img, quote)
 
 
@@ -29,9 +31,11 @@ if __name__ == "__main__":
     parser.add_argument('--path', type=str,
                         help="path to an image file (optional)")
     parser.add_argument('--body', type=str,
-                        help="quote body to add to the image (optional, required if author is set)")
+                        help=("quote body to add to the image"
+                              "(optional, required if author is set)"))
     parser.add_argument('--author', type=str,
-                        help="quote author to add to the image (optional, required if body is set)")
+                        help=("quote author to add to the image"
+                              "(optional, required if body is set)"))
     args = parser.parse_args()
 
     try:
