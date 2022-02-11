@@ -8,30 +8,29 @@ class QuoteModel():
             "body" - author
             or
             body - author (no quotes)
-    Use this regexp to parse.
+    Use these regexps to parse.
     """
 
     regexp_1 = '\s*\"([^\"]*?)\"\s*-\s*([^\"]*)\s*'
     regexp_2 = '\s*([^\"]*?)\s*-\s*([^\"]*)\s*'
-    
-    
+
     def __init__(self, body, author):
         """ Constructor """
         self.body = body
         self.author = author
         if not self.is_valid():
-            raise ValueError("badly formed quote model")
+            raise ValueError("Badly formed quote model")
 
     def is_valid(self):
-        """ Constructor """
+        """Check if model is valid."""
         return bool(self.body) and bool(self.author)
 
     def __repr__(self) -> str:
-        """ Constructor """
+        """Model to string."""
         return f'A quote: {self.body} by {self.author}'
 
     def get_formatted(self) -> str:
-        """ store body and author and format nively as  "body" - author
+        """Store body and author and format nicely to be written into an image
         """
         return f"\"{self.body}\"\n    - {self.author}"
 
@@ -39,10 +38,8 @@ class QuoteModel():
     @staticmethod
     def from_text(text: str):
 
-        """Parse a line. 
-        The quote body can optionally be wrapped in double quotes
-        
-        Returns a valid QuoteModel or throws ValueError
+        """Parse a line using the regexps described above
+        Returns a valid QuoteModel or throws a ValueError
         """
 
         groups = None
@@ -52,7 +49,7 @@ class QuoteModel():
             groups = re.findall(QuoteModel.regexp_2, text)
 
         if not groups or len(groups) != 1:
-            raise ValueError('format fail')
+            raise ValueError('Parsing text to model failed ' + text)
         matches = groups[0]
         return QuoteModel(matches[0], matches[1])
 

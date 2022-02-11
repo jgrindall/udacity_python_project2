@@ -1,5 +1,4 @@
-""" Comment """
-
+"""MemeEngine - generates a meme given an image and a quote"""
 
 import sys
 import os
@@ -7,7 +6,7 @@ import random
 from PIL import Image, ImageDraw, ImageFont
 from models import QuoteModel
 import time
-from utils import out_dir
+from utils import out_dir as default_out_dir
 
 sys.path.append('/models')
 sys.path.append('/utils')
@@ -17,14 +16,13 @@ font_path = f'{root_dir}/_data/LilitaOne-Regular.ttf'
 
 
 class MemeEngine:
-    """ MemeEngine."""
 
-    def __init__(self, out_path: str=out_dir):
+    def __init__(self, out_dir: str=default_out_dir):
         """Constructor
         Arguments:
             out_path {str} - where to save
         """
-        self.out_path = out_path
+        self.out_dir = out_dir
 
     def make_meme(self, img, quote: QuoteModel):
         """Make a meme, give a model
@@ -36,7 +34,9 @@ class MemeEngine:
             str -- path to the saved file which was created
         """
 
-        out_file = f'{self.out_path}/{int(time.time())}{random.randint(0,1000)}.jpg'
+        out_file = f'{self.out_dir}/{int(time.time())}{random.randint(0,1000)}.jpg'
+
+        # some randomisation of colors etc
         font_size = random.randint(16, 32)
         font = ImageFont.truetype(font_path, size=font_size)
         font_color = (random.randint(0,255), random.randint(0,255), random.randint(0,255))

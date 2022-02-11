@@ -4,14 +4,12 @@ import docx
 from .IngestorInterface import IngestorInterface
 from models import QuoteModel
 from typing import List
-import re
 
 sys.path.append('/models')
 
-
 class DocxIngestor(IngestorInterface):
 
-    """Comment"""
+    """Load a docx, split into paragraphs and parse"""
 
     suppported_extensions = ["docx"]
 

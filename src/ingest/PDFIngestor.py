@@ -17,7 +17,6 @@ root_dir = os.path.abspath(os.curdir)
 
 TEMP_FOLDER = root_dir + '/_tmp'
 
-
 class PDFIngestor(IngestorInterface):
 
     """Comment."""

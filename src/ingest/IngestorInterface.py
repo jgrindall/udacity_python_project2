@@ -10,18 +10,18 @@ sys.path.append('/models')
 
 class IngestorInterface(ABC):
 
-    """ Comment."""
+    """ Common interface for all ingestors."""
 
     suppported_extensions = []
 
     @classmethod
     @abstractmethod
     def import_and_parse(cls, file: str) -> List[QuoteModel]:
-        """ Comment."""
+        """Override."""
         pass
 
     @classmethod
     def can_parse(cls, path):
-        """ Comment."""
+        """Can this parser handle this file?"""
         ext = path.split('.')[-1]
         return ext in cls.suppported_extensions

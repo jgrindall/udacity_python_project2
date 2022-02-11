@@ -1,4 +1,4 @@
-"""Comment."""
+"""Helper class to read and parse a file using any available ingestor."""
 
 import sys
 from .TxtIngestor import TxtIngestor
@@ -14,20 +14,20 @@ sys.path.append('/models')
 
 class Ingestor:
 
-    available_parsers = [TxtIngestor, DocxIngestor, CSVIngestor, PDFIngestor]
+    available_ingestors = [TxtIngestor, DocxIngestor, CSVIngestor, PDFIngestor]
 
     @classmethod
     def get_parser(cls, file: str) -> IngestorInterface:
-        """Comment."""
-        for Parser in cls.available_parsers:
+        """Get the relevant concrete ingestor."""
+        for Parser in cls.available_ingestors:
             if Parser.can_parse(file):
                 return Parser
 
     @classmethod
     def parse(cls, file: str) -> List[QuoteModel]:
-        """Comment."""
+        """Load and parse a file, returning a list of models"""
         Parser = cls.get_parser(file)
         if Parser:
             return Parser.import_and_parse(file)
         else:
-            raise Exception("No parser found for file")
+            raise Exception("No parser found for file " + file)

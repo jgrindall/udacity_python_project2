@@ -1,5 +1,4 @@
-""" Comment """
-
+""" Load a CSV file and use pandas to parse """
 
 import sys
 import pandas
@@ -17,7 +16,7 @@ class CSVIngestor(IngestorInterface):
 
     @classmethod
     def import_and_parse(cls, file: str) -> List[QuoteModel]:
-        """Import and parse a file
+        """Import and parse a csv file
 
         Arguments:
             file {str} -- the filepath.
