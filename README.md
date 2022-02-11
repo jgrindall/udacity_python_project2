@@ -1,8 +1,25 @@
 #MemeGenerator
 
-- To run on the command line:
+- To install dependencies:
+            - source venv/Scrips/activate
+            - pip install -r requirements.txt
 
-- To run some            - 
+
+- To run on the command line:
+            - python3 src/meme.py
+            - TODO
+            - TODO
+            
+            
+- To run some unit tests (currently just QuoteModel)
+            - python3 src/models/QuoteMode.py
+
+
+
+- To run the web app:
+            - export FLASK_APP=src/app.py
+            - flask run
+            
 
 
 https://review.udacity.com/#!/rubrics/2709/view

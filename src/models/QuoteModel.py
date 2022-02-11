@@ -39,7 +39,7 @@ class QuoteModel():
     def get_formatted(self) -> str:
         """Store body and author and format nicely to be written into an image
         """
-        return f"\"{self.body}\"\n    - {self.author}"
+        return f'\"{self.body}\"\n    - {self.author}'
 
     def __eq__(self, other):
         return self.author == other.author and self.body == other.body
@@ -76,6 +76,11 @@ class QuoteModel():
         ...
         ValueError: Parsing text to model failed:"Body - Author
         """
+        
+        # first remove any non utf-8 weirdness
+        # https://stackoverflow.com/questions/8898294/convert-utf-8-with-bom-to-utf-8-with-no-bom-in-python
+        
+        text = bytes(text.strip(), 'utf-8').decode('utf-8-sig', 'ignore')
 
         groups = None
         if re.match(QuoteModel.regexp_1, text):

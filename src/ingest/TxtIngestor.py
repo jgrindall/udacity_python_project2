@@ -23,7 +23,7 @@ class TxtIngestor(IngestorInterface):
             List[QuoteModel] -- the quotes
 
         """
-        file_ref = open(file, "r")
+        file_ref = open(file, "r", encoding='utf8', errors='ignore')
         quotes = []
         for line in file_ref.readlines():
             line = line.strip('\n\r').strip()
