@@ -3,7 +3,8 @@ import requests
 from models import QuoteModel
 from flask import Flask, render_template, request
 from engine import MemeEngine
-from utils import get_random_image, get_random_quote, out_dir, get_tmp_file
+from loaders import get_random_image, get_random_quote
+from utils import get_tmp_file, out_dir
 
 meme_engine = MemeEngine()
 root_dir = os.path.abspath(os.curdir)
@@ -42,7 +43,7 @@ def meme_post():
     supported_extensions = ["jpg", "png", "jpeg"]
 
     if ext not in supported_extensions:
-        raise ValueError("Only jog and png are currently supported")
+        raise ValueError("Only jpg and png are currently supported")
 
     tmp = get_tmp_file(ext)
     load_request = requests.get(image_url)

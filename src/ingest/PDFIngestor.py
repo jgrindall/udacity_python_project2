@@ -7,7 +7,7 @@ import subprocess
 from .IngestorInterface import IngestorInterface
 from .TxtIngestor import TxtIngestor
 from models import QuoteModel
-from utils.FileUtils import get_tmp_file
+from utils import get_tmp_file
 import os
 
 sys.path.append('/models')
@@ -30,10 +30,12 @@ class PDFIngestor(IngestorInterface):
             List[QuoteModel] -- the quotes
         """
 
-        tmp = get_tmp_file("txt")
+        tmp = get_tmp_file()
 
-        """We need the layout argument to maintain line breaks otherwise lines
-        are joined together and it is difficult to split them into quotes"""
+        """
+        We need the `layout` argument to maintain line breaks otherwise lines
+        are joined together and it is difficult to split them into quotes.
+        """
 
         cmd = r"{} -enc UTF-8 -layout {} {}".format('pdftotext', path, tmp)
 
@@ -43,7 +45,7 @@ class PDFIngestor(IngestorInterface):
         proc.wait()
         (stdout, stderr) = proc.communicate()
         if proc.returncode != 0:
-            raise ValueError("something")
+            raise ValueError("Failed to convert pdf to txt")
         else:
             models = TxtIngestor.import_and_parse(tmp)
             os.remove(tmp)

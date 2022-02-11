@@ -1,4 +1,4 @@
-""" Load a CSV file and use pandas to parse """
+"""Load a CSV file and use pandas to parse."""
 
 import sys
 import pandas
@@ -10,7 +10,7 @@ sys.path.append('/models')
 
 
 class CSVIngestor(IngestorInterface):
-    """ Comment """
+    """Load and parse a CSV file."""
 
     suppported_extensions = ["csv"]
 

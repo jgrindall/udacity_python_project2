@@ -4,7 +4,7 @@ from models import QuoteModel
 import argparse
 from engine import MemeEngine
 import traceback
-from utils import get_random_image, get_random_quote
+from loaders import get_random_image, get_random_quote
 
 
 class ParamsError(Exception):

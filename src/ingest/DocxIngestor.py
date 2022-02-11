@@ -1,4 +1,3 @@
-"""Comment."""
 import sys
 import docx
 from .IngestorInterface import IngestorInterface

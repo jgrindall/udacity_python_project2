@@ -7,6 +7,7 @@ from PIL import Image, ImageDraw, ImageFont
 from models import QuoteModel
 import time
 from utils import out_dir as default_out_dir
+from .MemeCaptioner import MemeCaptioner
 
 sys.path.append('/models')
 sys.path.append('/utils')
@@ -23,36 +24,41 @@ class MemeEngine:
         """
         self.out_dir = out_dir
 
-    @staticmethod
-    def get_color():
-        "Get a random color."
-        return (random.randint(0, 255),
-                random.randint(0, 255),
-                random.randint(0, 255))
+    def get_out_file(self, ext):
+        filename = f'{int(time.time())}{random.randint(0,1000000)}.{ext}'
+        return f'{self.out_dir}/{filename}'
 
-    def make_meme(self, img_path: str, quote: QuoteModel):
+    def make_meme(self, img_path: str, quote: QuoteModel, width: int = 500):
         """Make a meme, given an image and a model
         Arguments:
             img {str} - the image to load.
             quote {QuoteModel} -- the model to use.
+            width {int} - the desired width (default 500px)
 
         Returns:
             str -- path to the saved file which was created
         """
 
-        out_file = f'{self.out_dir}/{int(time.time())}{random.randint(0,1000000)}.jpg'
+        ext = img_path.split('.')[-1].lower()
+        supported_extensions = ["jpg", "png", "jpeg"]
 
-        # some randomisation of colors etc
-        font_size = random.randint(16, 32)
-        font = ImageFont.truetype(font_path, size=font_size)
-        font_x = random.randint(8, 32)
-        font_y = random.randint(8, 200)
+        if ext not in supported_extensions:
+            raise ValueError("Only jpg and png are currently supported")
+
+        out_file = self.get_out_file(ext)
 
         with Image.open(img_path) as im:
-            drawer = ImageDraw.Draw(im)
-            drawer.multiline_text((font_x, font_y),
-                                  quote.get_formatted(),
-                                  font=font,
-                                  fill=self.get_color())
-            im.save(root_dir + out_file, "JPEG")
+            # first resize
+            w = im.width
+            h = im.height
+            if w != width:
+                aspect_ratio = w/h
+                im = im.resize((width, int(width/aspect_ratio)))
+
+            # then caption
+            MemeCaptioner(im).add_caption(quote)
+
+            # leave off the file format, let the library decide the best
+            im.save(root_dir + out_file)
+
         return out_file

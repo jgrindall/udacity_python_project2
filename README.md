@@ -1,3 +1,10 @@
+#MemeGenerator
+
+- To run on the command line:
+
+- To run some            - 
+
+
 https://review.udacity.com/#!/rubrics/2709/view
 
 
@@ -22,15 +29,5 @@ Define custom exception classes for different types of exceptions—for things l
 
 memEngine -> MemeGenerator rename
 
-Loading of a file from disk
-Transform image by resizing to a maximum width of 500px while maintaining the input aspect ratio
-Add a caption to an image (string input) with a body and author to a random location on the image.
-
-
-make_meme(self, img_path, text, author, width=500) -> str #generated image path
-
-
-
-make ImageCaptioner class
 
 app.py uses the Quote Engine module and Meme Generator modules to generate a random captioned image.

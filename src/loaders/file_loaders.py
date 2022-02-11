@@ -2,29 +2,21 @@
 
 import os
 import random
-import time
 from ingest import Ingestor
 
 root_dir = os.path.abspath(os.curdir)
-out_dir = '/_out'
 
-TEMP_FOLDER = root_dir + '/_tmp'
-DEFAULT_QUOTE_FOLDER = root_dir + '/_data/DogQuotes/'
-DEFAULT_IMAGE_FOLDER = root_dir + '/_data/photos/dog/'
-
-
-def get_tmp_file(ext):
-    """Get a random temp path."""
-    return f'{TEMP_FOLDER}/{int(time.time())}{random.randint(0,1000000)}.{ext}'
+default_quote_folder = root_dir + '/_data/DogQuotes/'
+default_image_folder = root_dir + '/_data/photos/dog/'
 
 
 def get_random_image():
-    """Comment"""
+    """Get one random image"""
     return random.choice(get_all_images())
 
 
 def get_random_quote():
-    """Comment"""
+    """Get one random quote"""
     return random.choice(get_all_quotes())
 
 
@@ -44,7 +36,7 @@ def memoize_(func):
 def get_all_images():
     """Get all relevant images - memoized"""
     imgs = []
-    for root, dirs, files in os.walk(DEFAULT_IMAGE_FOLDER):
+    for root, dirs, files in os.walk(default_image_folder):
         imgs = [os.path.join(root, name) for name in files]
     return imgs
 
@@ -53,7 +45,7 @@ def get_all_images():
 def get_all_quotes():
     """Get all quote models - memoized"""
     quotes = []
-    for root, dirs, files in os.walk(DEFAULT_QUOTE_FOLDER):
+    for root, dirs, files in os.walk(default_quote_folder):
         files = [os.path.join(root, name) for name in files]
         for file in files:
             quotes.extend(Ingestor.parse(file))

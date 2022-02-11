@@ -1,4 +1,4 @@
-""" Comment """
+"""Ingest a txt file."""
 
 import sys
 from .IngestorInterface import IngestorInterface
@@ -9,16 +9,16 @@ sys.path.append('/models')
 
 
 class TxtIngestor(IngestorInterface):
-    """ Comment """
+    """Ingest a txt file."""
 
     suppported_extensions = ["txt"]
 
     @classmethod
     def import_and_parse(cls, file: str) -> List[QuoteModel]:
-        """Import and parse a file
+        """Import and parse a txt file
 
         Arguments:
-            file {str} -- the filepath.
+            file {str} -- the file path.
         Returns:
             List[QuoteModel] -- the quotes
 
