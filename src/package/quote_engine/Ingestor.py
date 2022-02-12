@@ -1,15 +1,12 @@
 """Helper class to read and parse a file using any available ingestor."""
 
-import sys
 from .TxtIngestor import TxtIngestor
 from .DocxIngestor import DocxIngestor
 from .CSVIngestor import CSVIngestor
 from .PDFIngestor import PDFIngestor
 from .IngestorInterface import IngestorInterface
-from models import QuoteModel
+from package.models import QuoteModel
 from typing import List
-
-sys.path.append('/models')
 
 
 class Ingestor:
@@ -18,9 +15,13 @@ class Ingestor:
 
     @classmethod
     def get_parser(cls, file: str) -> IngestorInterface:
-        """Get the relevant concrete ingestor."""
+        """Get the relevant concrete ingestor.
+        Test creating basic model
+        >>> print(Ingestor.get_parser("something.pdf"))
+        PDFIngestor
+        """
         for Parser in cls.available_ingestors:
-            if Parser.can_parse(file):
+            if Parser.can_ingest(file):
                 return Parser
 
     @classmethod

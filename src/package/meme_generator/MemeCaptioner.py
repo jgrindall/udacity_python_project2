@@ -1,13 +1,10 @@
 """MemeCaptioner - handles adding captions"""
 
-import sys
 import os
 import random
 from PIL import ImageDraw, ImageFont
-from models import QuoteModel
+from ..models import QuoteModel
 
-sys.path.append('/models')
-sys.path.append('/utils')
 root_dir = os.path.abspath(os.curdir)
 font_path = f'{root_dir}/_data/LilitaOne-Regular.ttf'
 

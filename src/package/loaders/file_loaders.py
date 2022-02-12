@@ -2,12 +2,12 @@
 
 import os
 import random
-from quote_engine import Ingestor
+from ..quote_engine import Ingestor
 
 root_dir = os.path.abspath(os.curdir)
 
 default_quote_folder = root_dir + '/_data/DogQuotes/'
-default_image_folder = root_dir + '/_data/photos/dog/'
+default_image_folder = root_dir + '/_data/photos/'
 
 
 def get_random_image():
@@ -37,7 +37,9 @@ def get_all_images():
     """Get all relevant images - memoized"""
     imgs = []
     for root, dirs, files in os.walk(default_image_folder):
-        imgs = [os.path.join(root, name) for name in files]
+        paths = [os.path.join(root, name) for name in files]
+        for path in paths:
+            imgs.append(path)
     return imgs
 
 

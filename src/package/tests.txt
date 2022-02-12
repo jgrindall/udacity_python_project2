@@ -1,0 +1,80 @@
+# Test is valid
+>>> from package.models import QuoteModel
+>>> q1 = QuoteModel('Body1', "Author")
+>>> q1.is_valid()
+True
+
+#  Test is not valid
+>>> q2 = QuoteModel('Body1', "Author")
+>>> q2.author = ""
+>>> q2.is_valid()
+False
+
+# Test creating basic model from text
+>>> q4 = QuoteModel('Body1', "Author")
+>>> QuoteModel.from_text("Body1 - Author") == q4
+True
+
+# Test whitespace
+>>> q5 = QuoteModel('Body2', "Author")
+>>> QuoteModel.from_text('   "Body2"          -     Author') == q5
+True
+
+# Test error
+>>> q6 = QuoteModel.from_text("")
+Traceback (most recent call last):
+...
+ValueError: Parsing text to model failed:
+
+# Test error
+>>> q7 = QuoteModel.from_text("Body")
+Traceback (most recent call last):
+...
+ValueError: Parsing text to model failed:Body
+
+# Test error - mismatched quotes
+>>> q8 = QuoteModel.from_text('"Body - Author')
+Traceback (most recent call last):
+...
+ValueError: Parsing text to model failed:"Body - Author
+
+# Test get_parser pdf
+>>> from package.quote_engine import Ingestor
+>>> print(Ingestor.get_parser("something.pdf"))
+<class 'package.quote_engine.PDFIngestor.PDFIngestor'>
+
+
+# Test get_parser csv
+>>> from package.quote_engine import Ingestor
+>>> print(Ingestor.get_parser("something.CSV"))
+<class 'package.quote_engine.CSVIngestor.CSVIngestor'>
+
+
+# Test get_parser doc
+>>> from package.quote_engine import Ingestor
+>>> print(Ingestor.get_parser("something.docX"))
+<class 'package.quote_engine.DocxIngestor.DocxIngestor'>
+
+
+# Test get_parser txt
+>>> from package.quote_engine import Ingestor
+>>> print(Ingestor.get_parser("something.txt"))
+<class 'package.quote_engine.TxtIngestor.TxtIngestor'>
+
+
+# Test get_parser (incorrect)
+>>> from package.quote_engine import Ingestor
+>>> print(Ingestor.get_parser("something.TEXT"))
+None
+
+
+# Test get_parser (incorrect)
+>>> from package.quote_engine import Ingestor
+>>> print(Ingestor.get_parser("something.jpg"))
+None
+
+
+
+
+
+

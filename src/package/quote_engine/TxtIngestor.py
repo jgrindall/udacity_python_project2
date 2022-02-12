@@ -1,17 +1,17 @@
 """Ingest a txt file."""
 
-import sys
 from .IngestorInterface import IngestorInterface
 from typing import List
-from models import QuoteModel
-
-sys.path.append('/models')
+from ..models import QuoteModel
 
 
 class TxtIngestor(IngestorInterface):
     """Ingest a txt file."""
 
     suppported_extensions = ["txt"]
+
+    def __repr__(self) -> str:
+        return 'TxtIngestor'
 
     @classmethod
     def import_and_parse(cls, file: str) -> List[QuoteModel]:

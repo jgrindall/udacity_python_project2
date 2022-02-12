@@ -6,11 +6,10 @@ from typing import List
 import subprocess
 from .IngestorInterface import IngestorInterface
 from .TxtIngestor import TxtIngestor
-from models import QuoteModel
-from utils import get_tmp_file
+from ..models import QuoteModel
+from ..utils import get_tmp_file
 import os
 
-sys.path.append('/models')
 root_dir = os.path.abspath(os.curdir)
 
 

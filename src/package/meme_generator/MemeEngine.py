@@ -1,16 +1,13 @@
 """MemeEngine - generates a meme given an image and a quote"""
 
-import sys
 import os
 import random
-from PIL import Image, ImageDraw, ImageFont
-from models import QuoteModel
+from PIL import Image
+from ..models import QuoteModel
 import time
-from utils import out_dir as default_out_dir
+from ..utils import out_dir as default_out_dir
 from .MemeCaptioner import MemeCaptioner
 
-sys.path.append('/models')
-sys.path.append('/utils')
 root_dir = os.path.abspath(os.curdir)
 font_path = f'{root_dir}/_data/LilitaOne-Regular.ttf'
 
@@ -24,7 +21,7 @@ class MemeEngine:
         """
         self.out_dir = out_dir
 
-    def get_out_file(self, ext):
+    def __get_out_file(self, ext):
         filename = f'{int(time.time())}{random.randint(0,1000000)}.{ext}'
         return f'{self.out_dir}/{filename}'
 
@@ -45,7 +42,7 @@ class MemeEngine:
         if ext not in supported_extensions:
             raise ValueError("Only jpg and png are currently supported")
 
-        out_file = self.get_out_file(ext)
+        out_file = self.__get_out_file(ext)
 
         with Image.open(img_path) as im:
             # first resize

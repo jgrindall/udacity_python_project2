@@ -1,10 +1,7 @@
-import sys
 import docx
 from .IngestorInterface import IngestorInterface
-from models import QuoteModel
+from ..models import QuoteModel
 from typing import List
-
-sys.path.append('/models')
 
 
 class DocxIngestor(IngestorInterface):
@@ -12,6 +9,9 @@ class DocxIngestor(IngestorInterface):
     """Load a docx, split into paragraphs and parse"""
 
     suppported_extensions = ["docx"]
+
+    def __repr__(self) -> str:
+        return 'DocxIngestor'
 
     @classmethod
     def import_and_parse(cls, file: str) -> List[QuoteModel]:

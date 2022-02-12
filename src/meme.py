@@ -1,10 +1,10 @@
 """Command line utility to create memes."""
 
-from models import QuoteModel
+from package.models import QuoteModel
 import argparse
-from meme_engine import MemeEngine
+from package.meme_generator import MemeEngine
 import traceback
-from loaders import get_random_image, get_random_quote
+from package.loaders import get_random_image, get_random_quote
 
 
 class ParamsError(Exception):

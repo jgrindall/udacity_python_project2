@@ -1,18 +1,18 @@
 """Load a CSV file and use pandas to parse."""
 
-import sys
 import pandas
 from .IngestorInterface import IngestorInterface
-from models import QuoteModel
+from ..models import QuoteModel
 from typing import List
-
-sys.path.append('/models')
 
 
 class CSVIngestor(IngestorInterface):
     """Load and parse a CSV file."""
 
     suppported_extensions = ["csv"]
+
+    def __repr__(self) -> str:
+        return 'CSVIngestor'
 
     @classmethod
     def import_and_parse(cls, file: str) -> List[QuoteModel]:
