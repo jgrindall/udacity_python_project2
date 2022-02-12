@@ -52,13 +52,13 @@ class MemeEngine:
                 if w != width:
                     aspect_ratio = w/h
                     im = im.resize((width, int(width/aspect_ratio)))
-    
+
                 # then caption
                 MemeCaptioner(im).add_caption(quote)
-    
+
                 # leave off the file format, let the library decide the best
                 im.save(root_dir + out_file)
-    
+
             return out_file
         except OSError as e:
             raise InputParamsError('File IO Error: {}'.format(e))

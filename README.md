@@ -51,8 +51,8 @@ Note: python3 -> 'py' for Windows
 
 - To run some unit tests (currently just QuoteModel and Ingestor.py)
 
-            > cd src/package
-            > python3 -m doctest -v tests.txt
+            > cd src
+            > python3 -m doctest -v package/tests.txt
 
 
 

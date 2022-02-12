@@ -18,7 +18,7 @@ def generate_meme(path=None, body=None, author=None):
     elif not body and not author:
         quote = get_random_quote()
     else:
-        raise InputParamsError('Author & body must both be set or both be missing')
+        raise InputParamsError('Author, body must be both set or both missing')
     return MemeEngine().make_meme(img, quote)
 
 
@@ -45,4 +45,3 @@ if __name__ == "__main__":
         print('Parse Error: {}'.format(e))
     except Exception as e:
         print('Unexpected Error: {}'.format(e))
-
