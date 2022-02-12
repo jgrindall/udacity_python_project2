@@ -18,8 +18,14 @@
 
 ## Running the project:
 
-- To install dependencies (from the root folder):
+Note: python3 -> 'py' for Windows
+
+
+- To install:
                         
+            > git clone https://github.com/jgrindall/udacity_python_project2.git
+            > cd udacity_python_project2
+            > python3 -m venv venv
             > source venv/Scripts/activate
             > pip install -r requirements.txt
 
