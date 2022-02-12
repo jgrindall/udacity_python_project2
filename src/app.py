@@ -1,10 +1,10 @@
 import os
 import requests
-from .models import QuoteModel
+from package.models import QuoteModel
 from flask import Flask, render_template, request, abort
-from .meme_generator import MemeEngine
-from .loaders import get_random_image, get_random_quote
-from .utils import get_tmp_file, out_dir
+from package.meme_generator import MemeEngine
+from package.loaders import get_random_image, get_random_quote
+from package.utils import get_tmp_file, out_dir
 
 meme_engine = MemeEngine()
 root_dir = os.path.abspath(os.curdir)
