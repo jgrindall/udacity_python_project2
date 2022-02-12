@@ -10,15 +10,12 @@ class DocxIngestor(IngestorInterface):
 
     suppported_extensions = ["docx"]
 
-    def __repr__(self) -> str:
-        return 'DocxIngestor'
-
     @classmethod
     def import_and_parse(cls, file: str) -> List[QuoteModel]:
         """Import and parse a doc.
 
         Arguments:
-            file {str} -- the filepath.
+            :file {str} -- the filepath.
         Returns:
             List[QuoteModel] -- the quotes
 

@@ -10,5 +10,8 @@ temp_folder = root_dir + '/_tmp'
 
 
 def get_tmp_file(ext: str = "txt"):
-    """Get a random temp path."""
+    """Get a random temp path.
+        Arguments:
+        :ext - the extension you want to use. Eg. txt
+        """
     return f'{temp_folder}/{int(time.time())}{random.randint(0,1000000)}.{ext}'

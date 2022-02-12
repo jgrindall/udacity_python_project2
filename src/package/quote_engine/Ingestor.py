@@ -5,8 +5,9 @@ from .DocxIngestor import DocxIngestor
 from .CSVIngestor import CSVIngestor
 from .PDFIngestor import PDFIngestor
 from .IngestorInterface import IngestorInterface
-from package.models import QuoteModel
+from ..models import QuoteModel
 from typing import List
+from ..errors import UnsupportedFileError
 
 
 class Ingestor:
@@ -31,4 +32,4 @@ class Ingestor:
         if Parser:
             return Parser.import_and_parse(file)
         else:
-            raise Exception("No parser found for file " + file)
+            raise UnsupportedFileError("No parser found for file " + file)

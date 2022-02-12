@@ -14,7 +14,7 @@ class MemeCaptioner:
     def __init__(self, img):
         """Constructor
         Arguments:
-            img {Image} - the Pillow image to add a caption to
+            :img {Image} - the Pillow image to add a caption to
         """
         self.img = img
 
@@ -28,7 +28,8 @@ class MemeCaptioner:
     def add_caption(self, quote: QuoteModel):
         """Draw a meme, into the image
         Arguments:
-            quote {QuoteModel} -- the model to use.
+            :quote {QuoteModel} -- the model to use.
+
         Returns the same image, with a caption added
         """
 

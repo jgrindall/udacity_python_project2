@@ -1,7 +1,6 @@
 """Ingest PDF."""
 
 
-import sys
 from typing import List
 import subprocess
 from .IngestorInterface import IngestorInterface
@@ -24,7 +23,7 @@ class PDFIngestor(IngestorInterface):
 
         """Import and parse a pdf.
         Arguments:
-            file {str} -- the filepath.
+            :file {str} -- the filepath.
         Returns:
             List[QuoteModel] -- the quotes
         """

@@ -1,4 +1,5 @@
 import re
+from ..errors import ParseError
 
 
 class QuoteModel():
@@ -18,7 +19,7 @@ class QuoteModel():
         self.body = body
         self.author = author
         if not self.is_valid():
-            raise ValueError("Badly formed quote model")
+            raise ParseError("Badly formed quote model")
 
     def is_valid(self):
         """Check if model is valid."""
@@ -41,6 +42,9 @@ class QuoteModel():
 
         """Parse a line using the regexps described above
         Returns a valid QuoteModel or throws a ValueError
+
+        Arguments:
+            :text {str} - the line of test to use to construct the model
         """
 
         # first remove any non utf-8 weirdness

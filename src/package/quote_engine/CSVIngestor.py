@@ -11,15 +11,12 @@ class CSVIngestor(IngestorInterface):
 
     suppported_extensions = ["csv"]
 
-    def __repr__(self) -> str:
-        return 'CSVIngestor'
-
     @classmethod
     def import_and_parse(cls, file: str) -> List[QuoteModel]:
         """Import and parse a csv file
 
         Arguments:
-            file {str} -- the filepath.
+            :file {str} -- the filepath.
         Returns:
             List[QuoteModel] -- the quotes
 

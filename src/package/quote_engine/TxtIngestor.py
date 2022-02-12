@@ -10,15 +10,12 @@ class TxtIngestor(IngestorInterface):
 
     suppported_extensions = ["txt"]
 
-    def __repr__(self) -> str:
-        return 'TxtIngestor'
-
     @classmethod
     def import_and_parse(cls, file: str) -> List[QuoteModel]:
         """Import and parse a txt file
 
         Arguments:
-            file {str} -- the file path.
+            :file {str} -- the file path.
         Returns:
             List[QuoteModel] -- the quotes
 
