@@ -3,12 +3,9 @@
 from package.models import QuoteModel
 import argparse
 from package.meme_generator import MemeEngine
+from package.errors import InputParamsError, UnsupportedFileError, ParseError
 import traceback
 from package.loaders import get_random_image, get_random_quote
-
-
-class ParamsError(Exception):
-    pass
 
 
 def generate_meme(path=None, body=None, author=None):
@@ -21,7 +18,7 @@ def generate_meme(path=None, body=None, author=None):
     elif not body and not author:
         quote = get_random_quote()
     else:
-        raise ParamsError('Author & body must both be set or both be missing')
+        raise InputParamsError('Author & body must both be set or both be missing')
     return MemeEngine().make_meme(img, quote)
 
 
@@ -40,11 +37,12 @@ if __name__ == "__main__":
 
     try:
         print(generate_meme(args.path, args.body, args.author))
-    except ParamsError as e:
-        print("Incorrect params")
-    except ValueError as e:
-        print("Incorrect params")
+    except InputParamsError as e:
+        print('Input Params Error: {}'.format(e))
+    except UnsupportedFileError as e:
+        print('Unsupported File Error: {}'.format(e))
+    except ParseError as e:
+        print('Parse Error: {}'.format(e))
     except Exception as e:
-        print("Something went wrong")
-        print(e)
-        print(traceback.format_exc())
+        print('Unexpected Error: {}'.format(e))
+

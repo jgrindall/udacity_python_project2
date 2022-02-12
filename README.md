@@ -87,7 +87,7 @@ Helper functions to load images and quotes.
             
 - src/package/models
 
-            - class QuoteModel - stores a quote (body, authour). Also handles validation and has a factory method to create a model from a line of text
+            - class QuoteModel - stores a quote (body, author). Also handles validation and has a factory method to create a model from a line of text
             Eg.
             q = QuoteModel("body", "author")
             q.is_valid() -> True
@@ -122,36 +122,26 @@ Helper functions to load images and quotes.
 
 - src/package/meme.py
 
-            - Command line 
+            - Command line functionality.
+            Builds an argparser. Runs MemeEngine::generate_meme.
+            Captures errors and reports them nicely to the user
 
 
 - src/package/tests.txt
             
-            - Unit tests
+            - Unit tests. To run them:
             
             > cd src/package
             > python3 -m doctest -v tests.txt
             
             
+- src/package/errors
+
+            - A number of custom error classes. Captured in meme.py.
 
 
 
-1. handle errors better
 
-2. check rubric
-
-If the program encounters a common error case (e.g. attempting to load an incompatible filetype),
-
-it throws an exception.
-
-Define custom exception classes for different types of exceptions—for things like *Invalid File, Invalid Text Input (e.g. too long)
-
-
-:param word: str
-    :return: int
-    
-    
-    
 add video
 
 
