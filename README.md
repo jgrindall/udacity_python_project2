@@ -56,7 +56,9 @@ Note: python3 -> 'py' for Windows
 
 
 
+- To show some debug info (from the root folder):
             
+            > python3 src/debug.py
 
 ## Code:
 

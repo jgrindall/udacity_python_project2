@@ -9,6 +9,9 @@ root_dir = os.path.abspath(os.curdir)
 default_quote_folder = root_dir + '/_data/DogQuotes/'
 default_image_folder = root_dir + '/_data/photos/'
 
+print('using default_quote_folder', default_quote_folder)
+print('using default_image_folder', default_image_folder)
+
 
 def get_random_image():
     """Get one random image"""
@@ -38,6 +41,8 @@ def get_all_images():
     imgs = []
     for root, dirs, files in os.walk(default_image_folder):
         paths = [os.path.join(root, name) for name in files]
+        print('found images:', root, files)
+        print('paths', paths, '\n')
         for path in paths:
             imgs.append(path)
     return imgs
@@ -48,7 +53,9 @@ def get_all_quotes():
     """Get all quote models - memoized"""
     quotes = []
     for root, dirs, files in os.walk(default_quote_folder):
-        files = [os.path.join(root, name) for name in files]
-        for file in files:
-            quotes.extend(Ingestor.parse(file))
+        paths = [os.path.join(root, name) for name in files]
+        print('found images:', root, files)
+        print('paths', paths, '\n')
+        for path in paths:
+            quotes.extend(Ingestor.parse(path))
     return quotes
