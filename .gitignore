@@ -1,5 +1,6 @@
 /venv
 src/.spyproject
+.spyproject
 
 /_tmp/*.txt
 /_tmp/*.jpg
