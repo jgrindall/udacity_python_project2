@@ -35,7 +35,7 @@ class PDFIngestor(IngestorInterface):
         are joined together and it is difficult to split them into quotes.
         """
 
-        cmd = r"{} -enc UTF-8 -layout {} {}".format('pdftotext', path, tmp)
+        cmd = r'{} -enc UTF-8 -layout "{}" "{}"'.format('pdftotext', path, tmp)
 
         proc = subprocess.Popen(cmd,
                                 stdout=subprocess.PIPE,
